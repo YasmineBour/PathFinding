@@ -91,3 +91,8 @@ function affiche(Path::Vector{Tuple{Int64,Int64}}, Distance::Number, cpt::Int64)
         println()
     end
 end
+
+#Fonction heuristique de Manhattan
+function heuristic(A,s)
+    return Float64(abs(A[1]-s[1]) + abs(A[2]-s[2]))
+end

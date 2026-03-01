@@ -1,14 +1,12 @@
-# Implementation de l'algorithme Dijkstra
-using DataStructures
-include("Graph.jl")
+# Implementation de l'algorithme Glouton
+ using DataStructures
+ include("Graph.jl")
 
-function Dijkstra(G,D,A)
+function Glouton(G,D,A)
     #Variable utile
     L , C = size(G)
     F = PriorityQueue{Tuple{Int64,Int64}, Float64}()
-    distance=Matrix{Float64 }(undef, L, C)
     precedent=Matrix{Tuple{Int64,Int64}}(undef, L, C)
-    permanent=Matrix{Bool}(undef, L, C)
     u::Tuple{Int64,Int64}=(0,0)
     cpt::Int64 = 0
     Path::Vector{Tuple{Int64,Int64}} = []
@@ -27,34 +25,29 @@ function Dijkstra(G,D,A)
         #initialisation des variables
         for i in 1:L 
             for j in 1:C 
-                distance[i,j]=Inf
                 precedent[i,j]=(0,0) #car ce point existe pas 
-                permanent[i,j]=false
-                enqueue!(F,(i,j),Inf)
             end
         end
-        distance[D[1],D[2]]=0
-        F[D] = 0.0
+        
+        enqueue!(F,D,heuristic(A,D))
+        precedent[D[1],D[2]]=D
 
         while !isempty(F)
             cpt=cpt+1
             u=dequeue!(F)
+
             if u == A 
                 F=PriorityQueue{Tuple{Int64,Int64}, Float64}()
 
-            
-            else 
-                permanent[u[1],u[2]]=true
+             else 
+
                 S = successeurs(G, u) 
 
                 for s in S
-                    if !permanent[s[1], s[2]]
-                        d=min(distance[s[1],s[2]],distance[u[1],u[2]] + Float64(G[s[1],s[2]]))
-                        if distance[s[1],s[2]]!=d
-                            distance[s[1],s[2]]=d
-                            precedent[s[1],s[2]]=u
-                            F[s] = d
-                        end
+                    if precedent[s[1],s[2]]==(0,0)
+                        precedent[s[1],s[2]]=u
+                        enqueue!(F, s, heuristic(A,s))
+                    
                     end
                 end
             end
@@ -63,9 +56,9 @@ function Dijkstra(G,D,A)
         #reconstruction du chemin si A a été atteint
         if precedent[A[1], A[2]] != (0,0)
             tmp::Tuple{Int64,Int64} = A
-            Distance =distance[tmp[1],tmp[2]]
             while tmp != D 
                 push!(Path, tmp)
+                Distance = Distance + G[tmp[1], tmp[2]]
                 tmp = precedent[tmp[1], tmp[2]]
             end
             push!(Path, D)    # On ajoute le nœud de départ
@@ -79,7 +72,3 @@ function Dijkstra(G,D,A)
 end
     
 
-
-    
-
-    

@@ -1,0 +1,55 @@
+#Mes notes pratiques et reflexions
+
+au débu matrice adjacence echec car pour une map je devrais faire une matrice de (m*n)*(m*n) avec trop de zéro cétait une implémentation trop difficile et trop couteuse
+
+On a penser au à  l'implementation quadtree
+
+On a gagner 123Milions à 260 000 opérations avec la nouvelle version de map to matrice complexité 0(h+w) 
+
+AVL au lieu de priorityqueue dans dijsktra? impliquerait une complexité en log 
+
+
+
+
+Comprendre l’heuristique de Manhattan et l’algorithme A*
+
+pourquoi une heuristique ?
+
+Dans l’algorithme de Dijkstra, on explore les chemins en fonction du
+coût réel parcouru : g(n) = coût réel depuis le départ.
+
+Mais dans l’algorithme A*, on ajoute une estimation du coût restant
+jusqu’au but : f(n) = g(n) + h(n)
+
+où : - g(n) = coût réel depuis le départ - h(n) = estimation du coût
+restant jusqu’au but - f(n) = estimation du coût total en passant par ce
+nœud
+
+L’algorithme choisit le nœud avec le plus petit f(n).
+
+Sur quoi se base l’estimation h(n) ?
+
+L’heuristique se base sur une approximation simple de la distance au
+but. Elle ignore volontairement les obstacles pour rester rapide.
+
+Heuristique de Manhattan : 
+
+Elle suppose que l’on peut aller au but uniquement avec des mouvements
+horizontaux et verticaux.
+
+Formule : h(n) = |x_but - x_n| + |y_but - y_n| ie la distance en nombre de cases.
+
+
+Pourquoi ignorer les obstacles ?
+
+Parce que l’heuristique doit être un minorant, c’est‑à‑dire : h(n) ≤
+distance réelle
+
+
+Différence entre Dijkstra et A*
+
+Dijkstra utilise seulement g(n).
+
+A* utilise : f(n) = g(n) + h(n)
+
+

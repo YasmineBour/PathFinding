@@ -19,7 +19,7 @@ function BFS(G, D, A)
         return (Path, Distance, cpt)
     
     elseif !est_bornee(L,C,D) || !est_bornee(L,C,A)
-        print("Ces coordonnées sont hors borne de la map")
+        println("Ces coordonnées sont hors borne de la map")
         return (-1, 0, Tuple{Int,Int}[])
 
     else
@@ -68,7 +68,7 @@ function BFS(G, D, A)
             tmp::Tuple{Int64,Int64} = A
             while tmp != D 
                 push!(Path, tmp)
-                Distance = Distance + 1
+                Distance = Distance + 1 #ou G[tmp[1], tmp[2]]?
                 tmp = V[tmp[1], tmp[2]]
             end
             push!(Path, D)    # On ajoute le nœud de départ

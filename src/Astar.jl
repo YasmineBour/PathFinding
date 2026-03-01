@@ -1,11 +1,12 @@
-# Implementation de l'algorithme Dijkstra
-using DataStructures
 include("Graph.jl")
+ using DataStructures
+# Implementation de l'algorithme A*
 
-function Dijkstra(G,D,A)
+function Astar(G,D,A)
     #Variable utile
     L , C = size(G)
     F = PriorityQueue{Tuple{Int64,Int64}, Float64}()
+    f=Matrix{Float64 }(undef, L, C)
     distance=Matrix{Float64 }(undef, L, C)
     precedent=Matrix{Tuple{Int64,Int64}}(undef, L, C)
     permanent=Matrix{Bool}(undef, L, C)
@@ -27,14 +28,15 @@ function Dijkstra(G,D,A)
         #initialisation des variables
         for i in 1:L 
             for j in 1:C 
+                f[i,j]=Inf
                 distance[i,j]=Inf
                 precedent[i,j]=(0,0) #car ce point existe pas 
                 permanent[i,j]=false
                 enqueue!(F,(i,j),Inf)
             end
         end
-        distance[D[1],D[2]]=0
-        F[D] = 0.0
+        distance[D[1],D[2]]=0.0
+        F[D] = Float64(heuristic(A, D))
 
         while !isempty(F)
             cpt=cpt+1
@@ -51,9 +53,10 @@ function Dijkstra(G,D,A)
                     if !permanent[s[1], s[2]]
                         d=min(distance[s[1],s[2]],distance[u[1],u[2]] + Float64(G[s[1],s[2]]))
                         if distance[s[1],s[2]]!=d
+                            f[s[1], s[2]]= d + heuristic(A,s)
                             distance[s[1],s[2]]=d
                             precedent[s[1],s[2]]=u
-                            F[s] = d
+                            F[s]= f[s[1], s[2]]
                         end
                     end
                 end
@@ -77,9 +80,3 @@ function Dijkstra(G,D,A)
     end
 
 end
-    
-
-
-    
-
-    
