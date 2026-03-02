@@ -1,4 +1,4 @@
-# Implementation de l'algorithme Dijkstra
+#implementation de l'algorithme Dijkstra
 using DataStructures
 include("Graph.jl")
 
@@ -68,8 +68,8 @@ function Dijkstra(G,D,A)
                 push!(Path, tmp)
                 tmp = precedent[tmp[1], tmp[2]]
             end
-            push!(Path, D)    # On ajoute le nœud de départ
-            reverse!(Path)    # On remet le chemin dans l'ordre D → A
+            push!(Path, D)    
+            reverse!(Path)    
         end
 
         affiche(Path, Distance, cpt)

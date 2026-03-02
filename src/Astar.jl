@@ -1,6 +1,7 @@
+#Implementation de l'algorithme A*
+
 include("Graph.jl")
- using DataStructures
-# Implementation de l'algorithme A*
+using DataStructures
 
 function Astar(G,D,A)
     #Variable utile
@@ -71,8 +72,8 @@ function Astar(G,D,A)
                 push!(Path, tmp)
                 tmp = precedent[tmp[1], tmp[2]]
             end
-            push!(Path, D)    # On ajoute le nœud de départ
-            reverse!(Path)    # On remet le chemin dans l'ordre D → A
+            push!(Path, D)    #On ajoute D car dans la boucle on l'atteind pas (cond arret)
+            reverse!(Path)    #on remet le chemin dans l'ordre D → A
         end
 
         affiche(Path, Distance, cpt)

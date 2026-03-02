@@ -1,4 +1,4 @@
-# Implementation de l'algorithme Glouton
+#Implementation de l'algorithme Glouton
  using DataStructures
  include("Graph.jl")
 
@@ -61,8 +61,8 @@ function Glouton(G,D,A)
                 Distance = Distance + G[tmp[1], tmp[2]]
                 tmp = precedent[tmp[1], tmp[2]]
             end
-            push!(Path, D)    # On ajoute le nœud de départ
-            reverse!(Path)    # On remet le chemin dans l'ordre D → A
+            push!(Path, D)  
+            reverse!(Path)    
         end
 
         affiche(Path, Distance, cpt)
