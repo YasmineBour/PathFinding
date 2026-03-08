@@ -72,21 +72,21 @@ end
 
 
 #Fonction permettant une affiche propore des résultats obtenue 
-function affiche(Path::Vector{Tuple{Int64,Int64}}, Distance::Number, cpt::Int64)
-
+function affiche(Path::Vector{Tuple{Int64,Int64}}, Distance::Number, cpt::Int64,t::Float64)
     #Si path est vide c'est que le chemin n'existe pas
     if isempty(Path)
         println("Aucun chemin trouvé")
     else
         println("Distance D → A : ", Distance)
         println("Number of states evaluated : ", cpt)
-        print("Path D → A : ",Path[1])
-        x = length(Path)
-        if x>1
-            for i in 2:x
-            print("→",Path[i])
-            end
-        end
+        println("Time (s) : ", round(t, digits=6))
+        #print("Path D → A : ",Path[1])
+        #x = length(Path)
+        #if x>1
+         #   for i in 2:x
+          #  print("→",Path[i])
+           # end
+        #end
 
         println()
     end
