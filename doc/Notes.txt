@@ -53,3 +53,4 @@ Dijkstra utilise seulement g(n).
 A* utilise : f(n) = g(n) + h(n)
 
 
+Je suis coincée parce que avec des matrices je ne peux pas faire d'allocation dynamique or les intervaux sont dynamique on passe au Dict???
